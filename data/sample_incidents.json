@@ -1,0 +1,33 @@
+[
+  {
+    "incident_id": "INC-001",
+    "title": "Checkout service returns HTTP 503",
+    "description": "After a deployment, the checkout service begins returning HTTP 503 errors and customers cannot complete purchases.",
+    "service": "checkout",
+    "severity": "high",
+    "historical_context": "A previous incident was caused by an upstream timeout configuration. Rolling back that configuration restored service.",
+    "expected_checks": [
+      "Check recent deployment changes",
+      "Inspect upstream timeout configuration",
+      "Verify service health before and after any fix"
+    ],
+    "expected_outcome": "Engineer records whether the attempted fix resolved the incident."
+  }
+]
+[
+ {
+    "incident_id": "INC-002",
+    "title": "Checkout service returns HTTP 503 after configuration change",
+    "description": "The checkout service starts returning HTTP 503 errors shortly after an upstream configuration change.",
+    "service": "checkout",
+    "severity": "high",
+    "historical_context": "A similar checkout outage was caused by an incorrect upstream timeout configuration. Rolling back the configuration restored the service.",
+    "expected_checks": [
+      "Check recent configuration changes",
+      "Inspect upstream timeout values",
+      "Compare the current configuration with the previous working configuration",
+      "Verify checkout health after the configuration is corrected"
+    ],
+    "expected_outcome": "Engineer records whether correcting or rolling back the configuration restores checkout."
+  }
+]

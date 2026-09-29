@@ -1,0 +1,58 @@
+{% if error %}
+
+<div class="error-card">
+
+    <div class="font-semibold">
+        Could not create incident
+    </div>
+
+    <div class="mt-1 text-sm">
+        {{ error }}
+    </div>
+
+</div>
+
+{% elif incident %}
+
+<div class="success-card">
+
+    <div class="flex items-start gap-4">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <div class="flex-1">
+
+            <div class="font-semibold text-emerald-300">
+                Incident created successfully
+            </div>
+
+            <div class="mt-1 text-sm text-slate-400">
+                Incident ID:
+                <span class="font-mono text-slate-200">
+                    {{ incident.incident_id }}
+                </span>
+            </div>
+
+            <a
+                href="{% url 'incident_detail' incident.incident_id %}"
+                class="mt-4 inline-flex text-sm font-medium text-cyan-400 hover:text-cyan-300"
+            >
+                Open incident →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.href =
+            "{% url 'incident_detail' incident.incident_id %}";
+    }, 800);
+</script>
+
+{% endif %}

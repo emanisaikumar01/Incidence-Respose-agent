@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}RecallOps{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="https://unpkg.com/htmx.org@2.0.4" defer></script>
+    <script src="{% static 'js/app.js' %}" defer></script>
+</head>
+<body class="bg-slate-950 text-slate-100" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+    <header class="site-header">
+        <a class="brand" href="{% url 'dashboard' %}">RecallOps</a>
+        <nav class="flex gap-2">
+            <a class="nav-link" href="{% url 'incident_history' %}">History</a>
+            <a class="nav-link" href="{% url 'memory_explorer' %}">Memory</a>
+        </nav>
+    </header>
+    <main class="page-content">
+        {% block content %}{% endblock %}
+    </main>
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50"></div>
+</body>
+</html>

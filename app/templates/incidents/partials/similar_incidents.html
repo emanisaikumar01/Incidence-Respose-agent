@@ -1,0 +1,19 @@
+{# Memory list shown in the right-hand "Memory" panel. Expects: memories (list of {memory_id, text}) #}
+{% if memories %}
+<div class="space-y-3">
+    {% for memory in memories %}
+    <div class="memory-card">
+        <div class="flex items-start justify-between gap-3">
+            <div class="text-xs font-mono text-cyan-400">{{ memory.memory_id|default:"MEMORY" }}</div>
+            <span class="text-xs text-emerald-400">RECALLED</span>
+        </div>
+        <p class="mt-3 whitespace-pre-line text-sm leading-6 text-slate-300">{{ memory.text }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="memory-empty">
+    <div class="text-2xl text-slate-600">◌</div>
+    <p class="mt-3 text-sm text-slate-500">No relevant previous incidents were found.</p>
+</div>
+{% endif %}

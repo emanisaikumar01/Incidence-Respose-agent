@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container">
+    <h1>Incident History</h1>
+    <p>Review previously reported incidents and their outcomes.</p>
+
+    {% if error %}
+        <div class="error-card">{{ error }}</div>
+    {% elif incidents %}
+        <div class="incident-list">
+            {% for incident in incidents %}
+                <div class="incident-card">
+                    <h2>
+                        <a href="{% url 'incident_detail' incident.incident_id %}">
+                            {{ incident.title|default:"Untitled incident" }}
+                        </a>
+                    </h2>
+
+                    <p>
+                        Service:
+                        {{ incident.service|default:"Not provided" }}
+                    </p>
+                    <p>
+                        Status:
+                        {{ incident.status|default:"Unknown" }}
+                    </p>
+                    {% if incident.fix %}
+                    <p>
+                        Fix attempted: {{ incident.fix }}
+                        — {% if incident.worked %}✓ worked{% else %}× did not work{% endif %}
+                    </p>
+                    {% endif %}
+                    <p>
+                        Severity:
+                        {{ incident.severity|default:"Unknown" }}
+                    </p>
+
+                    <a href="{% url 'incident_detail' incident.incident_id %}">
+                        View incident →
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No incidents found</h2>
+            <p>Report an incident to see it listed here.</p>
+            <a href="{% url 'new_incident' %}">Report an incident</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

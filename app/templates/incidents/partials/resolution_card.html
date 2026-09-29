@@ -1,0 +1,46 @@
+{# Result of "Record Outcome". Expects: error | resolution (backend /outcome response) #}
+{% if error %}
+<div class="error-card">
+    <div class="font-semibold">Outcome not recorded</div>
+    <p class="mt-1 text-sm">{{ error }}</p>
+</div>
+
+{% elif resolution.status == "memory_error" %}
+<div class="error-card">
+    <div class="font-semibold">Saved locally, but NOT stored in Hindsight memory</div>
+    <p class="mt-1 text-sm">{{ resolution.error }}</p>
+</div>
+
+{% elif resolution %}
+<div class="success-card">
+    <div class="flex items-start gap-4">
+        <div class="success-icon">{% if resolution.worked %}✓{% else %}×{% endif %}</div>
+        <div class="flex-1">
+            <div class="font-semibold {% if resolution.worked %}text-emerald-300{% else %}text-amber-300{% endif %}">
+                Outcome recorded — {% if resolution.worked %}incident resolved{% else %}incident still unresolved{% endif %}
+            </div>
+            <div class="mt-1 text-sm text-slate-400">
+                Fix: <span class="text-slate-200">{{ resolution.fix }}</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-500">
+                Saved to the incident record{% if resolution.memory %} and stored in Hindsight memory for future recall{% endif %}.
+                Hindsight processes new memories in the background, so it may take a few seconds
+                before this shows up in recall for similar incidents.
+            </p>
+        </div>
+    </div>
+</div>
+
+{% if resolution.worked %}
+
+<script>
+    setTimeout(function () {
+        window.location.reload();
+    }, 1500);
+</script>
+
+{% endif %}
+
+{% else %}
+<div class="error-card">No response was returned by the backend.</div>
+{% endif %}

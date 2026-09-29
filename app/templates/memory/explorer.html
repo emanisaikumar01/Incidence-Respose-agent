@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+RecallOps — Memory Explorer
+{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto max-w-5xl">
+
+    <div class="mb-8">
+
+        <div class="flex items-center gap-2 text-sm font-medium text-cyan-400">
+            <span>◈</span>
+            HINDSIGHT MEMORY
+        </div>
+
+        <h1 class="mt-2 text-3xl font-bold">
+            Memory Explorer
+        </h1>
+
+        <p class="mt-2 text-slate-400">
+            Search previous incident experience stored in RecallOps.
+        </p>
+
+    </div>
+
+
+    <section class="panel">
+
+        <form
+            hx-get="{% url 'memory_search' %}"
+            hx-target="#memory-results"
+            hx-swap="innerHTML"
+            hx-indicator="#memory-loading"
+            class="flex flex-col gap-3 sm:flex-row"
+        >
+
+            <input
+                type="text"
+                name="q"
+                required
+                placeholder="Search: checkout 503 after deployment"
+                class="form-input flex-1"
+            >
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Search Memory
+            </button>
+
+        </form>
+
+        <div
+            id="memory-loading"
+            class="htmx-indicator mt-4 text-sm text-cyan-400"
+        >
+            Searching Hindsight...
+        </div>
+
+    </section>
+
+
+    <div
+        id="memory-results"
+        class="mt-6"
+    >
+
+        <div class="memory-empty">
+
+            <div class="text-4xl">
+                🧠
+            </div>
+
+            <h3 class="mt-4 font-semibold">
+                Search operational memory
+            </h3>
+
+            <p class="mt-2 text-sm text-slate-500">
+                Find previous incidents, fixes, and outcomes.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

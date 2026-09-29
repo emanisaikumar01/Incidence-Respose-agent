@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}
+RecallOps — New Incident
+{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto max-w-4xl">
+
+    <div class="mb-8">
+
+        <div class="text-sm font-medium text-cyan-400">
+            INCIDENT INTAKE
+        </div>
+
+        <h1 class="mt-2 text-3xl font-bold">
+            Report an Incident
+        </h1>
+
+        <p class="mt-2 text-slate-400">
+            Provide enough context for RecallOps to search previous operational experience.
+        </p>
+
+    </div>
+
+
+    <form
+        hx-post="{% url 'new_incident' %}"
+        hx-target="#incident-submit-result"
+        hx-swap="innerHTML"
+        class="space-y-6"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- BASIC INFORMATION -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2 class="panel-title">
+                        Incident Information
+                    </h2>
+
+                    <p class="panel-description">
+                        Basic information about the current failure.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="grid gap-5 md:grid-cols-2">
+
+                <div class="md:col-span-2">
+
+                    <label class="form-label">
+                        Incident title
+                    </label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        required
+                        placeholder="Checkout API returning HTTP 503"
+                        class="form-input"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Service
+                    </label>
+
+                    <input
+                        type="text"
+                        name="service"
+                        required
+                        placeholder="checkout-api"
+                        class="form-input"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Environment
+                    </label>
+
+                    <select
+                        name="environment"
+                        class="form-input"
+                    >
+                        <option value="production">
+                            Production
+                        </option>
+
+                        <option value="staging">
+                            Staging
+                        </option>
+
+                        <option value="development">
+                            Development
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Severity
+                    </label>
+
+                    <select
+                        name="severity"
+                        class="form-input"
+                    >
+                        <option value="low">
+                            Low
+                        </option>
+
+                        <option value="medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="critical">
+                            Critical
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Deployment / Version
+                    </label>
+
+                    <input
+                        type="text"
+                        name="deployment"
+                        placeholder="v2.4.1"
+                        class="form-input"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGS -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2 class="panel-title">
+                        Logs & Symptoms
+                    </h2>
+
+                    <p class="panel-description">
+                        Include errors, timestamps, symptoms, and useful observations.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <textarea
+                name="logs"
+                required
+                rows="12"
+                placeholder="2026-10-03 09:41:22 ERROR checkout-api HTTP 503...
+Deployment v2.4.1 was released approximately 8 minutes before failures started..."
+                class="form-input font-mono text-sm"
+            ></textarea>
+
+        </section>
+
+
+        <!-- SUBMIT -->
+
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                <span>
+                    Analyze Incident
+                </span>
+
+                <span class="htmx-indicator">
+                    Processing...
+                </span>
+            </button>
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="secondary-button"
+            >
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+
+    <div
+        id="incident-submit-result"
+        class="mt-6"
+    ></div>
+
+</div>
+
+{% endblock %}

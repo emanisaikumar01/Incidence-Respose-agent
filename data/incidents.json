@@ -1,0 +1,85 @@
+{
+  "INC-B6761A57": {
+    "incident_id": "INC-B6761A57",
+    "title": "Checkout API returning HTTP 503",
+    "description": "GET /api/checkout returns HTTP 503. Checkout requests are failing intermittently. Logs show a database connection timeout. No stack trace is available yet.",
+    "service": "checkout-api",
+    "severity": "high",
+    "logs": "GET /api/checkout returns HTTP 503. Checkout requests are failing intermittently. Logs show a database connection timeout. No stack trace is available yet.",
+    "status": "investigating"
+  },
+  "INC-0AC69773": {
+    "incident_id": "INC-0AC69773",
+    "title": "Checkout API returning HTTP 503",
+    "description": "GET /api/checkout returns HTTP 503. Checkout requests are failing intermittently. Logs show a database connection timeout. No stack trace is available yet.",
+    "service": "checkout-api",
+    "severity": "medium",
+    "logs": "GET /api/checkout returns HTTP 503. Checkout requests are failing intermittently. Logs show a database connection timeout. No stack trace is available yet.",
+    "status": "resolved",
+    "fix": "Rolled BAck",
+    "worked": true
+  },
+  "INC-AE810A42": {
+    "incident_id": "INC-AE810A42",
+    "title": "Payments API failing after v3.1.0 deploy",
+    "description": "2026-09-29 22:20 ERROR payments-api HTTP 502 on /api/pay/charge. Deployment v3.1.0 released ~8 min before first failure. Retry storm observed in logs.",
+    "service": "payments-api",
+    "severity": "high",
+    "logs": "2026-09-29 22:20 ERROR payments-api HTTP 502 on /api/pay/charge. Deployment v3.1.0 released ~8 min before first failure. Retry storm observed in logs.",
+    "environment": "production",
+    "deployment": "v3.1.0",
+    "status": "investigating"
+  },
+  "INC-6D06EC77": {
+    "incident_id": "INC-6D06EC77",
+    "title": "Payments API failing after v3.1.0 deploy",
+    "description": "2026-09-29 22:20 ERROR payments-api HTTP 502 on /api/pay/charge. Deployment v3.1.0 released ~8 min before first failure. Retry storm observed in logs.",
+    "service": "payments-api",
+    "severity": "high",
+    "logs": "2026-09-29 22:20 ERROR payments-api HTTP 502 on /api/pay/charge. Deployment v3.1.0 released ~8 min before first failure. Retry storm observed in logs.",
+    "environment": "production",
+    "deployment": "v3.1.0",
+    "status": "resolved",
+    "fix": "Rolled back deployment v3.1.0; error rate recovered immediately",
+    "worked": true
+  },
+  "INC-55B561A7": {
+    "incident_id": "INC-55B561A7",
+    "title": "api fail",
+    "description": "log erros are occur",
+    "service": "backend",
+    "severity": "medium",
+    "logs": "log erros are occur",
+    "environment": "production",
+    "deployment": "25.2",
+    "status": "resolved",
+    "fix": "we solved",
+    "worked": true
+  },
+  "INC-5B1CA1AB": {
+    "incident_id": "INC-5B1CA1AB",
+    "title": "payment appi issues after deployment",
+    "description": "customer repeatedly facing try again message",
+    "service": "api issues",
+    "severity": "medium",
+    "logs": "customer repeatedly facing try again message",
+    "environment": "production",
+    "deployment": "v2.3",
+    "status": "resolved",
+    "fix": "code reviewed and removed the bug",
+    "worked": true
+  },
+  "INC-466A595E": {
+    "incident_id": "INC-466A595E",
+    "title": "payments api issues in the beackend redis connection",
+    "description": "user repeatedly getting try again messages",
+    "service": "backend",
+    "severity": "medium",
+    "logs": "user repeatedly getting try again messages",
+    "environment": "production",
+    "deployment": "v2.5",
+    "status": "resolved",
+    "fix": "worked",
+    "worked": true
+  }
+}

@@ -1,0 +1,111 @@
+{# Expects: error | analysis (flat dict from views._normalize_analysis) + memories #}
+{% if error %}
+
+<div class="error-card">
+    <div class="font-semibold">{% if memory_failed %}Memory retrieval failed{% else %}Analysis failed{% endif %}</div>
+    <p class="mt-1 text-sm">{{ error }}</p>
+</div>
+
+{% elif analysis %}
+
+<div class="space-y-5">
+
+    <div class="memory-status-card">
+        <div>
+            <div class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Memory Retrieval</div>
+            <div class="mt-1 font-semibold text-slate-200">
+                {% if analysis.memory_used %}
+                    {{ memories|length }} relevant memor{{ memories|length|pluralize:"y,ies" }} found
+                {% else %}
+                    No relevant memories found — analysis uses this incident only
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            {% if analysis.memory_used %}
+                <span class="text-sm text-emerald-300">● Memory used</span>
+            {% else %}
+                <span class="text-sm text-slate-500">○ No matches</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <div class="analysis-label">Summary</div>
+        <p class="mt-2 whitespace-pre-line leading-7 text-slate-300">{{ analysis.summary|default:"No summary provided." }}</p>
+    </div>
+
+    <div>
+        <div class="analysis-label">Possible Cause</div>
+        <div class="mt-2 whitespace-pre-line rounded-xl border border-slate-800 bg-slate-950/70 p-4 text-slate-300">{{ analysis.possible_cause|default:"No possible cause provided." }}</div>
+    </div>
+
+    {% if analysis.evidence %}
+    <div>
+        <div class="analysis-label">Evidence</div>
+        <ul class="mt-3 space-y-2">
+            {% for item in analysis.evidence %}
+            <li class="flex gap-2 text-sm text-slate-300"><span class="text-cyan-400">→</span><span>{{ item }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if analysis.similar_incidents %}
+    <div>
+        <div class="analysis-label">Similar Incidents</div>
+        <p class="mt-2 whitespace-pre-line text-sm leading-6 text-slate-400">{{ analysis.similar_incidents }}</p>
+    </div>
+    {% endif %}
+
+    <div>
+        <div class="analysis-label">Recommended Action</div>
+        <div class="recommendation-box">
+            <div class="text-cyan-300">✦</div>
+            <div class="flex-1">
+                {% if analysis.recommended_steps %}
+                    <p class="leading-7 text-slate-200">Review the checks below. An engineer must verify findings before making production changes.</p>
+                {% elif analysis.recommended_action %}
+                    <p class="whitespace-pre-line leading-7 text-slate-200">{{ analysis.recommended_action }}</p>
+                {% else %}
+                    <p class="text-slate-500">No recommendation provided.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if analysis.recommended_steps %}
+    <div>
+        <div class="analysis-label">Recommended Checks</div>
+        <div class="mt-3 space-y-2">
+            {% for step in analysis.recommended_steps %}
+            <div class="step-card"><span class="step-number">{{ forloop.counter }}</span><span>{{ step }}</span></div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if analysis.prevention %}
+    <div>
+        <div class="analysis-label">Prevention</div>
+        <p class="mt-2 whitespace-pre-line text-sm leading-6 text-slate-400">{{ analysis.prevention }}</p>
+    </div>
+    {% endif %}
+
+    {% if analysis.confidence %}
+    <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-500">AI Confidence</span>
+        <span class="font-semibold text-cyan-300">{{ analysis.confidence }}</span>
+    </div>
+    {% endif %}
+
+</div>
+
+{# Also fill the right-hand Memory panel (out-of-band swap) #}
+<div id="memory-preview" hx-swap-oob="innerHTML">
+    {% include "incidents/partials/similar_incidents.html" %}
+</div>
+
+{% else %}
+<div class="error-card">No analysis data was returned by the backend.</div>
+{% endif %}
